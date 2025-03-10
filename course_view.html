@@ -31,9 +31,9 @@
             <!-- Display Course 1, 2, and 3 in the same line -->
             <h2>Enrolled Courses</h2>
             <hr>
-            <table class="cv">
+            <table class="cv" id="coursetable">
 				<tr>
-					<td>
+					<td onmouseover="hover(this)" onmouseout="unhover(this)">
 						<div>
                             <img src="course1.jpg" alt="Course 1">
                             <p>Course Name: Web Development</p>
@@ -41,7 +41,7 @@
                             <a href="attempt_quiz.html">Attempt Quiz</a>
                         </div>
 					</td>
-					<td>
+					<td onmouseover="hover(this)" onmouseout="unhover(this)">
 						<div>
                             <img src="course1.jpg" alt="Course 1">
                             <p>Course Name: Data Structures</p>
@@ -49,7 +49,7 @@
                             <a href="attempt_quiz.html">Attempt Quiz</a>
                         </div>
 					</td>
-                    <td>
+                    <td onmouseover="hover(this)" onmouseout="unhover(this)">
 						<div>
                             <img src="course1.jpg" alt="Course 1">
                             <p>Course Name: Database Systems</p>
@@ -60,7 +60,7 @@
 				</tr>
 				<!-- Display Course 4 and 5 in the same line -->
 				<tr>
-					<td>
+					<td onmouseover="hover(this)" onmouseout="unhover(this)">
 						<div>
                             <img src="course1.jpg" alt="Course 1">
                             <p>Course Name: Software Testing</p>
@@ -68,7 +68,7 @@
                             <a href="attempt_quiz.html">Attempt Quiz</a>
                         </div>
 					</td>
-					<td>
+					<td onmouseover="hover(this)" onmouseout="unhover(this)">
 						<div>
                             <img src="course1.jpg" alt="Course 1">
                             <p>Course Name: Software Architectures</p>
@@ -89,24 +89,24 @@
             <!-- Display Course 1, 2, and 3 in the same line -->
             <h2>Pending Invitations</h2>
             <hr>
-            <table class="cv">
-				<tr>
-					<td>
+            <table class="cv" id="pendingtable">
+				<tr id="pendingrow">
+					<td id="class1">
                         <div>
                             <img src="course2.jpg" alt="Course 2">
                             <p>Course Name: Data Science</p>
                             <p>Course Code: DS102</p>
-                            <button class="accept">Accept</button>
-                            <button class="decline">Decline</button>
+                            <button class="accept" onclick="enrollClass(class1)">Accept</button>
+                            <button class="decline" onclick="removeClass(class1)">Decline</button>
                         </div>
                     </td> 
-                    <td>
+                    <td id="class2">
                         <div>
                             <img src="course2.jpg" alt="Course 2">
                             <p>Course Name: Machine Learning</p>
                             <p>Course Code: ML105</p>
-                            <button class="accept">Accept</button>
-                            <button class="decline">Decline</button>
+                            <button class="accept" onclick="enrollClass(class2)">Accept</button>
+                            <button class="decline" onclick="removeClass(class2)">Decline</button>
                         </div>
                     </td> 
                 </tr>
@@ -116,5 +116,50 @@
     <footer>
         <p>&copy; 2025 LMS. All rights reserved.</p>
     </footer>
+    <script>
+        function enrollClass(classtoenroll) {
+            var table = document.getElementById("coursetable");
+            var numrows = table.rows.length;
+            if (table.rows[numrows-1].cells.length == 3){
+            var row = table.insertRow(numrows);
+            var cell = row.insertCell(0);
+            }
+            else{
+                num = table.rows[numrows-1].cells.length;
+                var cell = table.rows[numrows-1].insertCell(num);
+            }
+            cell.innerHTML = classtoenroll.innerHTML;
+            console.log(cell.innerHTML);
+            removeClass(classtoenroll);
+
+            // making the new cell match the other ones
+            cell.getElementsByTagName('img')[0].src = "course1.jpg";
+            cell.getElementsByTagName('button')[0].remove();
+            cell.getElementsByTagName('button')[0].remove();
+            var attemptquiz = document.createElement('a');
+            attemptquiz.innerHTML = 'Attempt Quiz';
+            attemptquiz.href = "attempt_quiz.html";
+            cell.appendChild(attemptquiz);
+            cell.addEventListener('mouseover', function() { hover(cell); });
+            cell.addEventListener('mouseout', function() { unhover(cell); });
+        }
+
+        function removeClass(classtoenroll) {
+            var row = document.getElementById("pendingrow");
+            for(i = 0; i < row.children.length ; i++) {
+                if(row.children[i]==classtoenroll) {
+                    row.deleteCell(i);
+                }
+            }
+        }
+
+        function hover(ele) {
+            ele.style.backgroundColor = "white";
+        }
+
+        function unhover(ele) {
+            ele.style.backgroundColor = "#e6f2ff"
+        }
+    </script>
 </body>
 </html>
