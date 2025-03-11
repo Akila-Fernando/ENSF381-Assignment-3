@@ -19,7 +19,7 @@
 
     <main class="signup">
         <h2>Signup</h2>
-            <form id="signupForm">
+            <form id="signupblock">
                 
                     <label for="username">Username:</label>
                     <input type="text" id="username" required>
@@ -45,14 +45,41 @@
         <p>&copy; 2025 LMS. All rights reserved.</p>
     </footer>
 <script>
+    document.getElementById('signupblock').addEventListener('submit', function(event){
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
+        let confirmPassword = document.getElementById('confirmPassword').value;
+        let email = document.getElementById('email').value;
 
+        let usernamereq = /^[A-Za-z][A-Za-z0-9_-]{2,19}$/;
+        let passwordreq = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/`~]).{8,}$/;
+        let emailreq = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+        
+        let errorblink = false;
+        if (!usernamereq.test(username)) {
+            console.log("Invalid username: (Reason: ");
+            errorblink = true;}
+        
+        if (!passwordreq.test(password)) {
+            console.log("Invalid passwprd: (Reason: ");
+            errorblink = true;}
 
+        if (password !== confirmPassword) {
+            console.log("Passwords do not match.");
+            errorblink = true;}
+        
+        if (!emailreq.test(email)) {
+            console.log("Invalid email format.");
+            errorblink = true;}
 
+        if (errorblink) {
+            errorBox.style.display = 'block';
+        } else{
+            console.log("Signup successful! Redirecting to login page...")
+        }    
 
+    });
 
-
-
-    
 </script>
 
 
