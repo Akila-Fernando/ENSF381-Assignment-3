@@ -224,6 +224,15 @@ table[class="leadertab"]{
     font-size: 20px;
 }
 
+main[class="signup"], main[class="index"] {
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    
+    margin: 20px auto;
+    max-width: 90%;
+}
+
 tr[class="first"]{
     background-color: #FFD700;
 }
