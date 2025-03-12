@@ -52,16 +52,19 @@
                 const users = await response.json();
                 console.log("API data loaded successfully", users)
                 const user = users.find(user => user.username === username && user.email === password);
+                users.forEach(user => {
+                    console.log(user.username, user.email);
+                    if (user) {
+                        messageBox.textContent = 'Login successful! Redirecting...';
+                        setTimeout(() => {window.location.href = 'course_view.html';}, 2000);
+                    } 
+                    else {
+                        messageBox.textContent = 'Invalid username or password.';
+                    }
+                });
 
-                if (user) {
-                    messageBox.textContent = 'Login successful! Redirecting...';
-                    setTimeout(() => {window.location.href = 'course_view.html';}, 2000);
-                } 
-                else {
-                    messageBox.textContent = 'Invalid username or password.';
-                }
-            } catch (error) {
-                messageBox.textContent = 'Error fetching data. Please try again later.';
+            } 
+            catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
