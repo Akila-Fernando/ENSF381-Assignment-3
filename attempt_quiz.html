@@ -37,7 +37,7 @@
             <label for="q1b">Home Tool Markup Language</label><br>
         </div>
         <br>
-        <button class="ans" onclick="pointCalculator(), validateAnswer1()">Submit Answer</button>
+        <button class="ans" onclick="validateAnswer1()">Submit Answer</button>
         
         <h3>Question 2</h3>
         <p>Which of the following are HTML elements? (Select all that apply)</p>
@@ -48,12 +48,11 @@
         <label for="q2b">&lt;span&gt;</label><br>
         </div>
         <br>
-        <button class="ans" onclick="pointCalculator(), validateAnswer2()">Submit Answer</button>
+        <button class="ans" onclick="validateAnswer2()">Submit Answer</button>
         
         <br><br>
-        <h3>Final Score: <span id="score"></span></h3>
         <a href="leaderboard.html">
-            <button class="FinQz">Finish Quiz</button>
+            <button class="FinQz" onclick="pointCalculator()">Finish Quiz</button>
         </a>
     </main>
     <footer>
@@ -112,17 +111,14 @@
                 points += 25;
             }
             
-            if(document.getElementById("q1a").checked) {points += 50}
+            if(document.getElementById("q1a").checked) {points += 50};
 
-            document.getElementById("score").textContent = points + "/" + 100
+            let score = points + "/" + 100;
+            alert("Final Score is " + score);
         }
         
 
-        /* THINGS TO ASK:
-        -allowed to use window.onload??
-        -when should points be calculated/displayed
-        -finish quiz button? shld it display points, or validate questions
-        */
+        // popup for final score
     
         </script>
 </body>
