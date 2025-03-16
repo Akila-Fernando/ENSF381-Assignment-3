@@ -21,11 +21,11 @@
         <h2>Signup</h2>
             <form id="signupblock">
                 
-                    <label for="username">Username:</label>
+                    <label for="username">Username:  akilafer</label>
                     <input type="text" id="username" required>
                     <br>
                 
-                    <label for="password">Password:</label>
+                    <label for="password">Password: Akila123$%</label>
                     <input type="password" id="password" required>
                     <br>
                 
@@ -33,54 +33,69 @@
                     <input type="password" id="confirmPassword" required>
                     <br>
                 
-                    <label for="email">Email:</label>
+                    <label for="email">Email:  testemail@rando.com</label>
                     <input type="text" id="email" required>
-                    <br>
+                    
 
-                <button type="submit" id="clicksignup">Sign Up</button><br>
+                
             </form>
+            <br>
+            <button type="submit" onclick="signupcheck()">Sign Up</button><br><br>
 
+            <div id="messageBox" class="message-box"></div>
     </main>
     <footer>
         <p>&copy; 2025 LMS. All rights reserved.</p>
     </footer>
-<script>
-    document.getElementById('signupblock').addEventListener('submit', function(event){
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        let confirmPassword = document.getElementById('confirmPassword').value;
-        let email = document.getElementById('email').value;
 
-        let usernamereq = /^[A-Za-z][A-Za-z0-9_-]{2,19}$/;
-        let passwordreq = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/`~]).{8,}$/;
-        let emailreq = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
-        
-        let errorblink = false;
-        if (!usernamereq.test(username)) {
-            console.log("Invalid username: (Reason: ");
-            errorblink = true;}
-        
-        if (!passwordreq.test(password)) {
-            console.log("Invalid passwprd: (Reason: ");
-            errorblink = true;}
-
-        if (password !== confirmPassword) {
-            console.log("Passwords do not match.");
-            errorblink = true;}
-        
-        if (!emailreq.test(email)) {
-            console.log("Invalid email format.");
-            errorblink = true;}
-
-        if (errorblink) {
-            errorBox.style.display = 'block';
-        } else{
-            console.log("Signup successful! Redirecting to login page...")
-        }    
-
-    });
-
-</script>
+    <script>
+        function signupcheck() {
+            const Uusername = document.getElementById('username').value;
+            const Upassword = document.getElementById('password').value;
+            const UconfirmPassword = document.getElementById('confirmPassword').value;
+            const Uemail = document.getElementById('email').value;
+            const messageBox = document.getElementById("messageBox");
+            messageBox.style.display = 'none';
+    
+            let errorMessages = [];
+    
+            
+            if (!(Uusername.length >= 3 && Uusername.length <= 20 && /^[a-zA-Z]/.test(Uusername) && /^[a-zA-Z0-9_-]*$/.test(Uusername))) {
+                errorMessages.push("Invalid username: Reason:.");
+            }
+    
+            // Password validation
+            const hasUppercase = /[A-Z]/.test(Upassword);
+            const hasLowercase = /[a-z]/.test(Upassword);
+            const hasNumber = /\d/.test(Upassword);
+            const hasSpecialChar = /[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/`~]/.test(Upassword);
+    
+            if (!(Upassword.length >= 8 && hasUppercase && hasLowercase && hasNumber && hasSpecialChar && !Upassword.includes(' '))) {
+                errorMessages.push("Invalid password: Reason:");
+            }
+    
+            
+            if (Upassword !== UconfirmPassword) {
+                errorMessages.push("Passwords do not match.");
+            }
+    
+            
+            if (!(Uemail.includes('@') && Uemail.includes('.') && !Uemail.includes(' '))) {
+                errorMessages.push("Invalid email format.");
+            }
+    
+            
+            if (errorMessages.length > 0) {
+                messageBox.innerHTML = errorMessages.join('<br>');
+                messageBox.style.display = 'block';
+            } else {
+                messageBox.textContent = 'Signup successful☺! Going to login page...';
+                messageBox.className = 'message-box';
+                messageBox.style.display = 'block';
+                setTimeout(() => { window.location.href = 'login.html'; }, 1000);
+            }
+        }
+    </script>
 
 
 

@@ -23,7 +23,7 @@
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required><br><br>
             
-            <label for="password">Password: testuse---(Sincere@april.biz)</label>
+            <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
             
 
@@ -70,7 +70,7 @@
                     } 
                     else if (!userFound) {
                         console.log("User not found")
-                        messageBox.textContent = 'Invalid username or password.';
+                        messageBox.textContent = 'Invalid username or password! Please try again.';
                         messageBox.className = 'message-box';
                         messageBox.style.display = 'block'; 
                         
