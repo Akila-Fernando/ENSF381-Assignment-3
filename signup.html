@@ -56,35 +56,74 @@
             const Uemail = document.getElementById('email').value;
             const messageBox = document.getElementById("messageBox");
             messageBox.style.display = 'none';
-    
+            
+            let hasLength = false;
+            let hasUpper = false;
+            let hasLower = false;
+            let hasNum = false;
+            let hasSpecialChar = false;
+            const specialChars = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
+
+
             let errorMessages = [];
     
-            
-            if (!(Uusername.length >= 3 && Uusername.length <= 20 && /^[a-zA-Z]/.test(Uusername) && /^[a-zA-Z0-9_-]*$/.test(Uusername))) {
-                errorMessages.push("Invalid username: Reason:.");
+            // Username validation block
+            if (Uusername.length >= 3 && Uusername.length <= 20) {
+                if ((Uusername[0] >= 'A' && Uusername[0] <= 'Z') || (Uusername[0] >= 'a' && Uusername[0] <= 'z')) {
+                    let isValid = true;
+                    for (let i = 0; i < Uusername.length; i++) {
+                        const char = Uusername[i];
+                        if (!((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z') || (char >= '0' && char <= '9') || char === '-' || char === '_')) {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                    if (!isValid) {
+                        errorMessages.push("Invalid username: Only alphanumeric characters, hyphens, and underscores are allowed.");
+                    }
+                } else {    
+                    errorMessages.push("Invalid username: Must start with a letter.");
+                }
+            } else {
+            errorMessages.push("Invalid username: Must be between 3 and 20 characters.");
             }
+
     
-            // Password validation
-            const hasUppercase = /[A-Z]/.test(Upassword);
-            const hasLowercase = /[a-z]/.test(Upassword);
-            const hasNumber = /\d/.test(Upassword);
-            const hasSpecialChar = /[!@#$%^&*()\-_=+\[\]{}|;:'",.<>?/`~]/.test(Upassword);
-    
-            if (!(Upassword.length >= 8 && hasUppercase && hasLowercase && hasNumber && hasSpecialChar && !Upassword.includes(' '))) {
-                errorMessages.push("Invalid password: Reason:");
+            // Password validation block
+            if (Upassword.length <= 0){
+                errorMessages.push("Password cannot be empty")
             }
-    
-            
+
+            for (let i = 0; i < Upassword.length; i++) {
+
+                const char = Upassword[i];
+
+                if (Upassword.length >= 8) hasLength = true;
+                else if (char >= 'A' && char <= 'Z') hasUpper = true;
+                else if (char >= 'a' && char <= 'z') hasLower = true;
+                else if (char >= '0' && char <= '9') hasNum = true;
+                else if (specialChars.includes(char)) hasSpecialChar = true;
+                else if (char === ' ') {
+                    errors.push("Password invalid");
+                break;
+            }
+        }
+
+            // Confirm password block
             if (Upassword !== UconfirmPassword) {
                 errorMessages.push("Passwords do not match.");
             }
     
+
+            // Email validation block
+                if (Uemail.includes('@') && Uemail.includes('.') && !(Uemail.includes(" "))) {
+                    console.log("Email is valid");
+                } else {
+                    errorMessages.push("Invalid email: Must contain '@' and '.' and should have no spaces.");
+                }
             
-            if (!(Uemail.includes('@') && Uemail.includes('.') && !Uemail.includes(' '))) {
-                errorMessages.push("Invalid email format.");
-            }
-    
-            
+
+
             if (errorMessages.length > 0) {
                 messageBox.innerHTML = errorMessages.join('<br>');
                 messageBox.style.display = 'block';
@@ -92,7 +131,7 @@
                 messageBox.textContent = 'Signup successful☺! Going to login page...';
                 messageBox.className = 'message-box';
                 messageBox.style.display = 'block';
-                setTimeout(() => { window.location.href = 'login.html'; }, 1000);
+                setTimeout(() => { window.location.href = 'login.html'; }, 2000);
             }
         }
     </script>
